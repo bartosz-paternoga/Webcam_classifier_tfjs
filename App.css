@@ -1,0 +1,39 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 10s linear;
+  height: 60px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 100px;
+  padding: 5px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1em;
+}
+
+.App-intro {
+  font-size: small;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+
+#webcam-wrapper, #Div1 {
+  justify-content: center;
+  text-align: center;
+  font-weight: bold; 
+}
+
+#message {
+  text-align: center;
+}
