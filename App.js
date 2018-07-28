@@ -199,62 +199,58 @@ state = {
 
 
 
-
-    //let isPredicting = false;
-
-
+    
     async function predict() {
 
 
-  // while (true) {
+    while (true) {
+
+      const predictedClass = tf.tidy(() => {
+        // Capture the frame from the webcam.
+        const img = webcam.capture();
+
+        // Make a prediction through mobilenet, getting the internal activation of
+        // the mobilenet model.
+        const activation = mobilenet.predict(img);
+
+        // Make a prediction through our newly-trained model using the activation
+        // from mobilenet as input.
+        const predictions = model.predict(activation);
+
+        // Returns the index with the maximum probability. This number corresponds
+        // to the class the model thinks is the most probable given the input.
+        return predictions.as1D().argMax();
+      });
+
+      const classId = (await predictedClass.data())[0];
 
 
-    const predictedClass = tf.tidy(() => {
-      // Capture the frame from the webcam.
-      const img = webcam.capture();
-
-      // Make a prediction through mobilenet, getting the internal activation of
-      // the mobilenet model.
-      const activation = mobilenet.predict(img);
-
-      // Make a prediction through our newly-trained model using the activation
-      // from mobilenet as input.
-      const predictions = model.predict(activation);
-
-      // Returns the index with the maximum probability. This number corresponds
-      // to the class the model thinks is the most probable given the input.
-      return predictions.as1D().argMax();
-    });
-
-    const classId = (await predictedClass.data())[0];
+      console.log("classId:", classId);
 
 
-    console.log("classId:", classId);
+        const elem = document.getElementById("Div1");
+        
+        if (elem !== null){
+        elem.parentNode.removeChild(elem);
+      }
+
+        const div = document.createElement('div');
+        div.setAttribute("id", "Div1");
+        document.body.appendChild(div);
+        div.style.marginBottom = '10px';
+        // Create info text
 
 
-      const elem = document.getElementById("Div1");
-      
-      if (elem !== null){
-      elem.parentNode.removeChild(elem);
-    }
-
-      const div = document.createElement('div');
-      div.setAttribute("id", "Div1");
-      document.body.appendChild(div);
-      div.style.marginBottom = '10px';
-      // Create info text
-
-
-      const infoText = document.createElement('span')
-      infoText.innerText = (`The predicled class: ${classId}`);
-      div.appendChild(infoText);
+        const infoText = document.createElement('span')
+        infoText.innerText = (`The predicled class: ${classId}`);
+        div.appendChild(infoText);
 
 
 
-    await tf.nextFrame();
-  
+      await tf.nextFrame();
+    
 
-    //}
+      }
 
     }
 
