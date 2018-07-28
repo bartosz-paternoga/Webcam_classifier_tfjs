@@ -242,7 +242,7 @@ state = {
 
 
         const infoText = document.createElement('span')
-        infoText.innerText = (`The predicled class: ${classId}`);
+        infoText.innerText = (`THE PREDICTED CLASS: ${classId}`);
         div.appendChild(infoText);
 
 

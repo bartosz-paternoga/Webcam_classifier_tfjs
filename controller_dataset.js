@@ -29,6 +29,8 @@ class ControllerDataset extends Component {
     this.numClasses = numClasses;
   }
 
+
+
   /**
    * Adds an example to the controller dataset.
    * @param {Tensor} example A tensor representing the example. It can be an image,
@@ -36,11 +38,13 @@ class ControllerDataset extends Component {
    * @param {number} label The label of the example. Should be an umber.
    */
   addExample(example, label) {
+
+
     // One-hot encode the label.
+
     const y = tf.tidy(() => tf.oneHot(tf.tensor1d([label], 'int32'), this.numClasses));
     console.log("label:",label);
-    //console.log("this.numClasses:",this.numClasses);
-    //console.log("label:",label);
+
 
     if (this.xs == null) {
       // For the first example that gets added, keep example and y so that the
@@ -59,9 +63,37 @@ class ControllerDataset extends Component {
       oldX.dispose();
       oldY.dispose();
       y.dispose();
-      //console.log("xs:",this.xs.toString());
-      //console.log("ys:",this.ys.toString());
-      //console.log("ys:", this.ys.toString());
+
+      //console.log(label, this.ys.toString());
+
+
+            const elem = document.getElementById("Div1");
+            
+            if (elem !== null){
+            elem.parentNode.removeChild(elem);
+          }
+
+            const div = document.createElement('div');
+            div.setAttribute("id", "Div1");
+            document.body.appendChild(div);
+            div.style.marginBottom = '10px';
+            // Create info text
+
+
+            const infoText = document.createElement('span')
+            infoText.innerText = (`EXAMPLE #  ${this.ys.shape[0]} ADDED`);
+            div.appendChild(infoText);
+
+            //const elem1 = document.getElementById("Div1");
+            
+            
+            //elem1.parentNode.removeChild(elem1);
+          
+
+
+
+
+
     }
   }
 }
