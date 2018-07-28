@@ -28,7 +28,7 @@
 }
 
 
-#webcam-wrapper, #Div1 {
+#webcam-wrapper {
   justify-content: center;
   text-align: center;
   font-weight: bold; 
@@ -36,4 +36,11 @@
 
 #message {
   text-align: center;
+}
+
+#Div1 {
+  justify-content: center;
+  text-align: center;
+  font-weight: bold; 
+  color: darkred;
 }
