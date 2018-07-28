@@ -1,1 +1,1 @@
-# Webcam_classifier_with_Tensorflow.js_and_REACT
+Webcam classifier with Tensorflow.js and REACT
