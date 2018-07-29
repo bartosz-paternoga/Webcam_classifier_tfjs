@@ -178,7 +178,7 @@ state = {
 
 
             const infoText = document.createElement('span')
-            infoText.innerText = (`LOSS: ${logs.loss.toFixed(10)}`);
+            infoText.innerText = (`LOSS: ${logs.loss.toFixed(5)}`);
             div.appendChild(infoText);
 
 
@@ -219,13 +219,16 @@ state = {
 
         // Returns the index with the maximum probability. This number corresponds
         // to the class the model thinks is the most probable given the input.
-        return predictions.as1D().argMax();
+        //return predictions.as1D().argMax();
+        return predictions.as1D();
       });
 
-      const classId = (await predictedClass.data())[0];
+      const classId = (await (predictedClass.argMax()).data())[0];
 
+      const prob = (await (predictedClass.dataSync())[classId]);
 
       console.log("classId:", classId);
+      console.log("prob:", prob);
 
 
         const elem = document.getElementById("Div1");
@@ -242,7 +245,7 @@ state = {
 
 
         const infoText = document.createElement('span')
-        infoText.innerText = (`THE PREDICTED CLASS: ${classId}`);
+        infoText.innerText = (`THE PREDICTED CLASS: ${classId} with prob. ${(prob*100).toFixed(0)}%`);
         div.appendChild(infoText);
 
 
