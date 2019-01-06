@@ -1,4 +1,6 @@
-Webcam classifier with Tensorflow.js. The app allows the classifier to be trained live in the browser on a webcam feed. LIVE DEMO at https://bartosz-paternoga.github.io/react-webcam-classifier-tfjs/
+Webcam classifier with Tensorflow.js. The app allows the classifier to be trained live in the browser on a webcam feed.
+
+Live demo: http://bartosz-paternoga.github.io/webcam_classifier-tfjs
 
 
 Intro to the topic:
