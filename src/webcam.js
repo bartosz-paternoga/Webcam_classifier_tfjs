@@ -39,7 +39,7 @@ import * as tf from '@tensorflow/tfjs';
    * Captures a frame from the webcam and normalizes it between -1 and 1.
    * Returns a batched image (1-element batch) of shape [1, w, h, c].
    */
-  capture() {
+ capture() {
     return tf.tidy(() => {
       // Reads the image as a Tensor from the webcam <video> element.
       const webcamImage = tf.fromPixels(this.webcamElement);
@@ -50,6 +50,9 @@ import * as tf from '@tensorflow/tfjs';
 
       // Expand the outer most dimension so we have a batch size of 1.
       const batchedImage = croppedImage.expandDims(0);
+
+      webcamImage.dispose();
+      croppedImage.dispose();
 
       // Normalize the image between -1 and 1. The image comes in between 0-255,
       // so we divide by 127 and subtract 1.
@@ -95,7 +98,7 @@ import * as tf from '@tensorflow/tfjs';
         navigator.getUserMedia(
             {video: true},
             stream => {
-              this.webcamElement.src = window.URL.createObjectURL(stream);
+              this.webcamElement.srcObject = stream;
               this.webcamElement.addEventListener('loadeddata', async () => {
                 this.adjustVideoSize(
                     this.webcamElement.videoWidth,
@@ -103,9 +106,8 @@ import * as tf from '@tensorflow/tfjs';
                 resolve();
               }, false);
             },
-            (error) => {
-              console.error(error);
-              reject(null);
+            error => {
+              reject();
             });
       } else {
         reject();
